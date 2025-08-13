@@ -1,0 +1,25 @@
+{
+  "mode": "perspective",
+  "placement": {
+    "quad_norm": [
+      [
+        0.2,
+        0.2
+      ],
+      [
+        0.8,
+        0.2
+      ],
+      [
+        0.8,
+        0.8
+      ],
+      [
+        0.2,
+        0.8
+      ]
+    ]
+  },
+  "blend_mode": "normal",
+  "opacity": 1.0
+}

@@ -1,0 +1,598 @@
+/* Global */
+QWidget {
+  background-color: #151515;
+  color: #e6e6e6;
+  font-size: 14px;
+}
+
+/* Remove dark boxes under text labels/checkboxes/radio */
+QLabel, QCheckBox, QRadioButton {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+/* Headings / Group boxes */
+QGroupBox {
+  background: #141617; /* base card */
+  border: none; /* remove stroke per tab */
+  border-radius: 16px;
+  margin: 12px 10px;
+  padding-top: 48px; /* keep block compact */
+}
+QGroupBox::title {
+  subcontrol-origin: margin;
+  subcontrol-position: top left;
+  left: 16px;
+  top: 20px; /* center within compact header */
+  padding: 0 8px;
+  color: #e6e6e6;
+  background: transparent; /* no pill shape */
+  border: none;
+  font-size: 56px; /* bigger text without enlarging block */
+  font-weight: 900; /* Qt max weight */
+  font-family: "Segoe UI Black", "Arial Black", "Helvetica Neue", "Roboto Black", "Roboto", Arial;
+}
+
+/* Google brand overlay gradients per section (top tint -> transparent) */
+QGroupBox#file_group {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+    stop:0 rgba(66,133,244,60), stop:0.35 rgba(66,133,244,25), stop:1 #141617);
+}
+QGroupBox#file_group::title { color: #4285F4; }
+/* Center the File Selection title vertically in header band and enlarge */
+QGroupBox#file_group::title {
+  top: 20px;
+  font-size: 60px;
+  font-weight: 900;
+}
+
+QGroupBox#transform_group {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+    stop:0 rgba(52,168,83,60), stop:0.35 rgba(52,168,83,25), stop:1 #141617);
+}
+QGroupBox#transform_group::title { color: #34A853; top: 20px; font-size: 60px; font-weight: 900; }
+
+/* Transform block tweaks: remove dark label boxes, center numbers, tint fields red */
+QGroupBox#transform_group QLabel {
+  background: transparent;
+  border: none;
+}
+QGroupBox#transform_group QLineEdit,
+QGroupBox#transform_group QSpinBox,
+QGroupBox#transform_group QDoubleSpinBox,
+QGroupBox#transform_group QComboBox {
+  background: transparent;
+  color: #eaeaea;
+  border: 1px solid rgba(52,168,83,0.5); /* green stroke */
+  min-width: 220px; /* dài hơn */
+  min-height: 28px; /* chỉ nhỉnh hơn font một chút */
+  padding: 2px 8px;
+  border-radius: 10px; /* bo tròn hơn */
+}
+QGroupBox#transform_group QLineEdit { qproperty-alignment: AlignCenter; }
+QGroupBox#transform_group QSpinBox { qproperty-alignment: AlignCenter; }
+QGroupBox#transform_group QDoubleSpinBox { qproperty-alignment: AlignCenter; }
+QGroupBox#transform_group QComboBox { /* keep text left; comment if want center */ }
+QGroupBox#transform_group QLineEdit:hover,
+QGroupBox#transform_group QSpinBox:hover,
+QGroupBox#transform_group QDoubleSpinBox:hover,
+QGroupBox#transform_group QComboBox:hover {
+  border-color: rgba(52,168,83,0.7);
+}
+
+/* Smooth step buttons for spinboxes */
+QGroupBox#transform_group QSpinBox::up-button,
+QGroupBox#transform_group QDoubleSpinBox::up-button {
+  subcontrol-origin: border;
+  subcontrol-position: top right;
+  width: 16px;
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #49c97a, stop:1 #2f9e57);
+  border-left: 1px solid rgba(52,168,83,0.5);
+  border-top-right-radius: 10px;
+}
+QGroupBox#transform_group QSpinBox::down-button,
+QGroupBox#transform_group QDoubleSpinBox::down-button {
+  subcontrol-origin: border;
+  subcontrol-position: bottom right;
+  width: 16px;
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #49c97a, stop:1 #2f9e57);
+  border-left: 1px solid rgba(52,168,83,0.5);
+  border-bottom-right-radius: 10px;
+}
+QGroupBox#transform_group QSpinBox::up-button:hover,
+QGroupBox#transform_group QDoubleSpinBox::up-button:hover,
+QGroupBox#transform_group QSpinBox::down-button:hover,
+QGroupBox#transform_group QDoubleSpinBox::down-button:hover {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #5ad58a, stop:1 #38b165);
+}
+
+/* ComboBox drop-down button (remove hard border, keep compact) */
+QGroupBox#transform_group QComboBox::drop-down {
+  subcontrol-origin: padding;
+  subcontrol-position: top right;
+  width: 16px;
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+    stop:0 #49c97a, stop:1 #2f9e57);
+  border-left: 1px solid rgba(52,168,83,0.5);
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+QGroupBox#transform_group QComboBox::drop-down:hover {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+    stop:0 #5ad58a, stop:1 #38b165);
+}
+QGroupBox#transform_group QComboBox::down-arrow {
+  width: 8px; height: 6px;
+}
+
+/* Transform block: droplist follows green block color */
+QGroupBox#transform_group QComboBox QAbstractItemView {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+    stop:0 #49c97a, stop:1 #2f9e57);
+  color: #ffffff;
+  border: 1px solid rgba(52,168,83,0.6);
+  outline: 0;
+}
+QGroupBox#transform_group QComboBox QAbstractItemView::item {
+  padding: 6px 10px;
+}
+QGroupBox#transform_group QComboBox QAbstractItemView::item:selected {
+  background: rgba(52,168,83,0.85);
+  color: #ffffff;
+}
+
+/* Per-block field tints: keep size, only change colors */
+QGroupBox#file_group QLineEdit,
+QGroupBox#file_group QSpinBox,
+QGroupBox#file_group QDoubleSpinBox,
+QGroupBox#file_group QComboBox {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #4b8bf7, stop:1 #2b6adf);
+  border: 1px solid rgba(66,133,244,0.45);
+  color: #ffffff;
+}
+
+QGroupBox#preview_group QLineEdit,
+QGroupBox#preview_group QSpinBox,
+QGroupBox#preview_group QDoubleSpinBox,
+QGroupBox#preview_group QComboBox,
+QGroupBox#preview_view_group QLineEdit,
+QGroupBox#preview_view_group QSpinBox,
+QGroupBox#preview_view_group QDoubleSpinBox,
+QGroupBox#preview_view_group QComboBox {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #facc15, stop:1 #eab308);
+  border: 1px solid rgba(251,188,4,0.45);
+  color: #0b0b0b;
+}
+
+QGroupBox#layer_group QLineEdit,
+QGroupBox#layer_group QSpinBox,
+QGroupBox#layer_group QDoubleSpinBox,
+QGroupBox#layer_group QComboBox {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #49c97a, stop:1 #2f9e57);
+  border: 1px solid rgba(52,168,83,0.45);
+  color: #ffffff;
+}
+
+QGroupBox#export_group QLineEdit,
+QGroupBox#export_group QSpinBox,
+QGroupBox#export_group QDoubleSpinBox,
+QGroupBox#export_group QComboBox {
+  background: transparent; /* remove blue fill */
+  border: 1px solid rgba(66,133,244,0.5); /* blue stroke */
+  color: #eaeaea;
+}
+
+QGroupBox#preview_group, QGroupBox#preview_view_group {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+    stop:0 rgba(66,133,244,60), stop:0.35 rgba(66,133,244,25), stop:1 #141617);
+}
+QGroupBox#preview_group::title, QGroupBox#preview_view_group::title { color: #4285F4; top: 20px; font-size: 60px; font-weight: 900; }
+
+/* Preview block buttons: individual colors */
+QGroupBox#preview_view_group QPushButton {
+  border: none;
+  border-radius: 12px;
+  padding: 10px 16px;
+}
+QPushButton#btn_preview {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #4b8bf7, stop:1 #2b6adf);
+  color: #ffffff;
+}
+QPushButton#btn_preview:hover { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #5a95f8, stop:1 #3775e6); }
+QPushButton#btn_preview:pressed { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #2f70e0, stop:1 #255ecc); }
+QPushButton#btn_reset_overlay {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #49c97a, stop:1 #2f9e57);
+  color: #ffffff;
+}
+QPushButton#btn_reset_overlay:hover { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #5ad58a, stop:1 #38b165); }
+QPushButton#btn_reset_overlay:pressed { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #2f9e57, stop:1 #257c45); }
+QPushButton#btn_center_overlay {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #f06258, stop:1 #d7372b);
+  color: #ffffff;
+}
+QPushButton#btn_center_overlay:hover { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #f57970, stop:1 #e14a3e); }
+QPushButton#btn_center_overlay:pressed { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #e14a3e, stop:1 #c23328); }
+
+QGroupBox#layer_group {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+    stop:0 rgba(52,168,83,60), stop:0.35 rgba(52,168,83,25), stop:1 #141617);
+}
+QGroupBox#layer_group::title { color: #34A853; top: 20px; font-size: 60px; font-weight: 900; }
+
+/* Layer Control buttons follow green block color */
+QGroupBox#layer_group QPushButton {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+    stop:0 #49c97a, stop:1 #2f9e57);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 16px;
+}
+QGroupBox#layer_group QPushButton:hover {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+    stop:0 #5ad58a, stop:1 #38b165);
+}
+QGroupBox#layer_group QPushButton:pressed {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+    stop:0 #2f9e57, stop:1 #257c45);
+}
+
+QGroupBox#export_group {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+    stop:0 rgba(66,133,244,60), stop:0.35 rgba(66,133,244,25), stop:1 #141617);
+}
+QGroupBox#export_group::title { color: #4285F4; top: 20px; font-size: 60px; font-weight: 900; }
+
+/* Export block labels transparent, remove black boxes */
+QGroupBox#export_group QLabel {
+  background: transparent;
+  border: none;
+}
+
+/* Export block choose buttons use blue brand color */
+QGroupBox#export_group QPushButton {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #4b8bf7, stop:1 #2b6adf);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 8px 14px;
+}
+QGroupBox#export_group QPushButton:hover {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #5a95f8, stop:1 #3775e6);
+}
+QGroupBox#export_group QPushButton:pressed {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #2f70e0, stop:1 #255ecc);
+}
+
+/* Make selection buttons in JSON row green */
+QPushButton#btn_pick_json,
+QPushButton#btn_pick_temp_dir {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #49c97a, stop:1 #2f9e57);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 8px 14px;
+}
+QPushButton#btn_pick_json:hover,
+QPushButton#btn_pick_temp_dir:hover {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #5ad58a, stop:1 #38b165);
+}
+QPushButton#btn_pick_json:pressed,
+QPushButton#btn_pick_temp_dir:pressed {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #2f9e57, stop:1 #257c45);
+}
+
+/* Scope-specific overrides (beat QGroupBox#export_group QPushButton blue rule) */
+QGroupBox#export_group QPushButton#btn_pick_json,
+QGroupBox#export_group QPushButton#btn_pick_temp_dir {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #49c97a, stop:1 #2f9e57);
+  color: #ffffff;
+  border: none;
+}
+QGroupBox#export_group QPushButton#btn_pick_json:hover,
+QGroupBox#export_group QPushButton#btn_pick_temp_dir:hover {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #5ad58a, stop:1 #38b165);
+}
+QGroupBox#export_group QPushButton#btn_pick_json:pressed,
+QGroupBox#export_group QPushButton#btn_pick_temp_dir:pressed {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #2f9e57, stop:1 #257c45);
+}
+
+/* Excel row: choose template and output dir buttons in red */
+QPushButton#btn_excel_choose_template,
+QPushButton#btn_excel_out_dir {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #f06258, stop:1 #d7372b);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 8px 14px;
+}
+QPushButton#btn_excel_choose_template:hover,
+QPushButton#btn_excel_out_dir:hover {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #f57970, stop:1 #e14a3e);
+}
+QPushButton#btn_excel_choose_template:pressed,
+QPushButton#btn_excel_out_dir:pressed {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #e14a3e, stop:1 #c23328);
+}
+
+/* Google brand colors per section */
+QGroupBox#file_group { border-color: #4285F4; }
+QGroupBox#file_group::title { color: #4285F4; }
+
+QGroupBox#transform_group { border-color: #34A853; }
+QGroupBox#transform_group::title { color: #34A853; }
+
+QGroupBox#preview_group, QGroupBox#preview_view_group { border-color: #4285F4; }
+QGroupBox#preview_group::title, QGroupBox#preview_view_group::title { color: #4285F4; }
+
+QGroupBox#layer_group { border-color: #34A853; }
+QGroupBox#layer_group::title { color: #34A853; }
+
+QGroupBox#export_group { border-color: #4285F4; }
+QGroupBox#export_group::title { color: #4285F4; }
+
+/* Labels */
+QLabel[objectName="active_label"] {
+  color: #4fc3f7;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+/* Active status inside Layer Control uses block color */
+QGroupBox#layer_group QLabel#active_label {
+  color: #34A853;
+  font-weight: 700;
+}
+
+/* Inputs */
+QLineEdit, QComboBox, QSpinBox, QDoubleSpinBox {
+  background: #1e1e1e;
+  color: #e6e6e6;
+  border: 1px solid #3a3a3a;
+  border-radius: 8px;
+  padding: 6px 10px;
+}
+QLineEdit:focus, QComboBox:focus, QSpinBox:focus, QDoubleSpinBox:focus {
+  border-color: #2ecc71;
+}
+QLineEdit:disabled, QComboBox:disabled, QSpinBox:disabled, QDoubleSpinBox:disabled {
+  color: #9a9a9a;
+  background: #202020;
+  border-color: #2b2b2b;
+}
+QComboBox QAbstractItemView {
+  background: #1e1e1e;
+  border: 1px solid #3a3a3a;
+  selection-background-color: #2ecc71;
+  selection-color: #0b0b0b;
+}
+QComboBox, QComboBox QAbstractItemView {
+  border-radius: 8px;
+}
+
+/* Buttons */
+QPushButton {
+  background: #2a2a2a;
+  color: #e6e6e6;
+  border: 1px solid #3f3f3f;
+  border-radius: 12px;
+  padding: 8px 12px;
+}
+QPushButton:hover {
+  background: #343434;
+}
+QPushButton:pressed {
+  background: #1f1f1f;
+}
+QPushButton:disabled {
+  color: #8d8d8d;
+  background: #232323;
+  border-color: #2e2e2e;
+}
+
+/* Keep original shape; only change fill color for the three pick buttons */
+QPushButton#btn_pick_mockup,
+QPushButton#btn_pick_design,
+QPushButton#btn_pick_watermark { 
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #4b8bf7, stop:1 #2b6adf);
+}
+QPushButton#btn_pick_mockup:hover,
+QPushButton#btn_pick_design:hover,
+QPushButton#btn_pick_watermark:hover { 
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #5a95f8, stop:1 #3775e6);
+}
+QPushButton#btn_pick_mockup:pressed,
+QPushButton#btn_pick_design:pressed,
+QPushButton#btn_pick_watermark:pressed { 
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #2f70e0, stop:1 #255ecc);
+}
+
+/* Override colors individually: Mockup blue (kept), Design green, Watermark red */
+QPushButton#btn_pick_design {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #49c97a, stop:1 #2f9e57);
+  color: #ffffff;
+}
+QPushButton#btn_pick_design:hover { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #5ad58a, stop:1 #38b165); }
+QPushButton#btn_pick_design:pressed { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #2f9e57, stop:1 #257c45); }
+
+QPushButton#btn_pick_watermark {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #f06258, stop:1 #d7372b);
+  color: #ffffff;
+}
+QPushButton#btn_pick_watermark:hover { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #f57970, stop:1 #e14a3e); }
+QPushButton#btn_pick_watermark:pressed { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #e14a3e, stop:1 #c23328); }
+
+/* Primary button style (by object name if needed) */
+/* Last row buttons: Export (green), Stop (red), Reset-all (blue) */
+QPushButton#export_btn {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #49c97a, stop:1 #2f9e57);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 8px 12px;
+}
+QPushButton#export_btn:hover { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #5ad58a, stop:1 #38b165); }
+QPushButton#export_btn:pressed { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #2f9e57, stop:1 #257c45); }
+
+QPushButton#stop_btn {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #f06258, stop:1 #d7372b);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 8px 12px;
+}
+QPushButton#stop_btn:hover { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #f57970, stop:1 #e14a3e); }
+QPushButton#stop_btn:pressed { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #e14a3e, stop:1 #c23328); }
+
+QPushButton#reset_all_btn {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #4b8bf7, stop:1 #2b6adf);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 8px 12px;
+}
+QPushButton#reset_all_btn:hover { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #5a95f8, stop:1 #3775e6); }
+QPushButton#reset_all_btn:pressed { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #2f70e0, stop:1 #255ecc); }
+
+/* Checkboxes */
+QCheckBox {
+  spacing: 6px;
+}
+QCheckBox::indicator {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+}
+QCheckBox::indicator:unchecked {
+  border: 1px solid #3a3a3a;
+  background: #1e1e1e;
+}
+QCheckBox::indicator:checked {
+  border: 1px solid #2ecc71;
+  background: #2ecc71;
+}
+
+/* Progress bar */
+QProgressBar {
+  border: 0;
+  background-color: #2b2b2b;
+  color: #ffffff;
+  text-align: center;
+  height: 16px;
+  border-radius: 8px;
+}
+QProgressBar::chunk {
+  background-color: #2ecc71;
+  border-radius: 8px;
+}
+
+/* Scroll area */
+QScrollArea, QScrollArea > QWidget > QWidget {
+  background: transparent;
+}
+
+/* Smooth, minimal scrollbars: transparent track, rounded handle */
+QScrollBar:vertical {
+  background: transparent;
+  width: 10px;
+  margin: 8px 4px 8px 0;
+  border: none;
+}
+QScrollBar::handle:vertical {
+  min-height: 40px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.24);
+  margin: 4px;
+}
+QScrollBar::handle:vertical:hover {
+  background: rgba(255,255,255,0.34);
+}
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+  height: 0; background: transparent; border: none;
+}
+QScrollBar::sub-page:vertical, QScrollBar::add-page:vertical {
+  background: transparent;
+}
+
+QScrollBar:horizontal {
+  background: transparent;
+  height: 10px;
+  margin: 0 8px 4px 8px;
+  border: none;
+}
+QScrollBar::handle:horizontal {
+  min-width: 40px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.24);
+  margin: 4px;
+}
+QScrollBar::handle:horizontal:hover { background: rgba(255,255,255,0.34); }
+QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal { width: 0; background: transparent; border: none; }
+QScrollBar::sub-page:horizontal, QScrollBar::add-page:horizontal { background: transparent; }
+
+/* Overrides for last action buttons (ensure precedence over group rule) */
+QGroupBox#export_group QPushButton#export_btn {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #49c97a, stop:1 #2f9e57);
+  color: #ffffff;
+  border: none;
+}
+QGroupBox#export_group QPushButton#export_btn:hover { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #5ad58a, stop:1 #38b165); }
+QGroupBox#export_group QPushButton#export_btn:pressed { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #2f9e57, stop:1 #257c45); }
+
+QGroupBox#export_group QPushButton#stop_btn {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #f06258, stop:1 #d7372b);
+  color: #ffffff;
+  border: none;
+}
+QGroupBox#export_group QPushButton#stop_btn:hover { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #f57970, stop:1 #e14a3e); }
+QGroupBox#export_group QPushButton#stop_btn:pressed { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #e14a3e, stop:1 #c23328); }
+
+QGroupBox#export_group QPushButton#reset_all_btn {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #4b8bf7, stop:1 #2b6adf);
+  color: #ffffff;
+  border: none;
+}
+QGroupBox#export_group QPushButton#reset_all_btn:hover { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #5a95f8, stop:1 #3775e6); }
+QGroupBox#export_group QPushButton#reset_all_btn:pressed { background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #2f70e0, stop:1 #255ecc); }
+
+/* Scope overrides for Excel buttons in red */
+QGroupBox#export_group QPushButton#btn_excel_choose_template,
+QGroupBox#export_group QPushButton#btn_excel_out_dir {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #f06258, stop:1 #d7372b);
+  color: #ffffff;
+  border: none;
+}
+QGroupBox#export_group QPushButton#btn_excel_choose_template:hover,
+QGroupBox#export_group QPushButton#btn_excel_out_dir:hover {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #f57970, stop:1 #e14a3e);
+}
+QGroupBox#export_group QPushButton#btn_excel_choose_template:pressed,
+QGroupBox#export_group QPushButton#btn_excel_out_dir:pressed {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #e14a3e, stop:1 #c23328);
+}
+
+/* Add spacing between form rows via container margins */
+QGroupBox > QWidget > QWidget {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+/* Graphics view */
+QGraphicsView {
+  background: #111111;
+  border: 1px solid #333333;
+  border-radius: 12px;
+}
+
+/* File info labels inside the blue header rows */
+QLabel#file_info_label { background: transparent; border: none; padding: 0; }
+
+/* Softer font across app (if available on system) */
+* {
+  font-family: "Helvetica Neue", "Segoe UI", "Roboto", Arial;
+}
+
+/* (removed stroke on file info labels for cleaner look) */
+

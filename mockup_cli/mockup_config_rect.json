@@ -1,0 +1,13 @@
+{
+  "mode": "rect",
+  "placement": {
+    "center_x_norm": 0.5,
+    "center_y_norm": 0.5,
+    "width_norm": 0.6,
+    "height_norm": 0.4,
+    "rotation_deg": 0.0
+  },
+  "blend_mode": "normal",
+  "opacity": 1.0,
+  "maintain_aspect": "contain"
+}

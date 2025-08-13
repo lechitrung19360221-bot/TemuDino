@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "MerchIntel Export JSON (v6 type-mapped filters)",
+  "version": "1.6.1",
+  "description": "Cào MerchIntel có lọc loại áo: Shirt (T‑Shirt/Shirt/Tee), Sweatshirt, Hoodie, Tanktop... Clean PNG + dedupe.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "MerchIntel Export JSON"
+  },
+  "permissions": [
+    "tabs",
+    "scripting",
+    "downloads",
+    "storage",
+    "notifications"
+  ],
+  "host_permissions": [
+    "https://tool.merchintel.com/*",
+    "https://m.media-amazon.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}

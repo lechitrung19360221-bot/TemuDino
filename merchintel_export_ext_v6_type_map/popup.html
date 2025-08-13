@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>MerchIntel Export</title>
+  <style>
+    *{box-sizing:border-box}
+    body { font-family: system-ui, Arial, sans-serif; width: 440px; padding: 14px; }
+    h3 { margin: 0 0 10px }
+    label { display:block; margin:8px 0 4px; font-size:12px; color:#111 }
+    input,select { width:100%; padding:8px; border:1px solid #ddd; border-radius:8px }
+    .row { display:flex; gap:8px }
+    .row > div { flex:1 }
+    .hint { font-size:11px; color:#555 }
+    button { width:100%; margin-top:12px; padding:10px; border:none; background:#111827; color:#fff; border-radius:10px; cursor:pointer }
+    .mode { display:flex; align-items:center; gap:8px; margin-top:8px }
+    fieldset { border:1px solid #eee; border-radius:10px; padding:8px 10px; margin-top:8px }
+    fieldset legend { font-size:12px; color:#333; padding:0 6px }
+    .checks { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:6px 10px; font-size:12px }
+    .checks label { display:flex; align-items:center; gap:6px; margin:0; }
+    code { background:#f6f7f9; padding:1px 4px; border-radius:6px }
+  </style>
+</head>
+<body>
+  <h3>MerchIntel Export JSON v6 (Type‑mapped)</h3>
+  <div class="hint">Base URL ví dụ: <code>https://tool.merchintel.com/a/t-shirt?rFrom=1</code> hoặc <code>/a/trending</code></div>
+  <label>Link gốc</label>
+  <input id="baseUrl" type="text" placeholder="https://tool.merchintel.com/a/t-shirt?rFrom=1" />
+
+  <div class="row">
+    <div>
+      <label>Trang bắt đầu</label>
+      <input id="startPage" type="number" value="1" min="1" />
+    </div>
+    <div>
+      <label>Trang kết thúc</label>
+      <input id="endPage" type="number" value="30" min="1" />
+    </div>
+  </div>
+
+  <div class="mode">
+    <input id="infiniteMode" type="checkbox" />
+    <label for="infiniteMode" style="margin:0">Chế độ infinite scroll (Trending, v.v.)</label>
+  </div>
+
+  <div class="row">
+    <div>
+      <label>Scroll passes (infinite)</label>
+      <input id="scrollPasses" type="number" value="20" min="1" />
+    </div>
+    <div>
+      <label>Delay mỗi pass (ms)</label>
+      <input id="scrollDelay" type="number" value="250" min="50" step="50" />
+    </div>
+  </div>
+
+  <fieldset>
+    <legend>Lọc loại áo (theo mapping)</legend>
+    <div class="checks">
+      <label><input type="checkbox" class="type" value="shirt"> Shirt <span class="hint">(T‑Shirt/Shirt/Tee)</span></label>
+      <label><input type="checkbox" class="type" value="sweatshirt"> Sweatshirt</label>
+      <label><input type="checkbox" class="type" value="hoodie"> Hoodie</label>
+      <label><input type="checkbox" class="type" value="ziphoodie"> Zip Hoodie</label>
+      <label><input type="checkbox" class="type" value="tanktop"> Tank Top</label>
+      <label><input type="checkbox" class="type" value="longsleeve"> Long Sleeve</label>
+      <label><input type="checkbox" class="type" value="raglan"> Raglan</label>
+      <label><input type="checkbox" class="type" value="vneck"> V‑Neck</label>
+      <label><input type="checkbox" class="type" value="premium"> Premium T‑Shirt</label>
+    </div>
+    <div class="hint">Không tick gì ⇒ lấy tất cả. Mapping “Shirt” <b>không</b> ăn vào “Sweatshirt”.</div>
+  </fieldset>
+
+  <button id="runBtn">Cào & Xuất JSON</button>
+  <div class="hint" id="status"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
