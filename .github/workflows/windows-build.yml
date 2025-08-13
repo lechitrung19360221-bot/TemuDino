@@ -34,30 +34,14 @@ jobs:
             pip install PySide6 pillow numpy requests openpyxl pyinstaller
           }
 
-      - name: Choose logo/icon
-        id: logo
-        shell: pwsh
-        run: |
-          $logoPng = Join-Path 'mockup_gui' 'logothumnail.png'
-          $fallbackPng = Join-Path 'mockup_gui' 'logo.png'
-          if (Test-Path $logoPng) { echo "png=$logoPng" >> $env:GITHUB_OUTPUT }
-          elseif (Test-Path $fallbackPng) { echo "png=$fallbackPng" >> $env:GITHUB_OUTPUT }
-          else { echo "png=" >> $env:GITHUB_OUTPUT }
-
       - name: Build with PyInstaller (onedir)
         shell: pwsh
         run: |
           $name = 'DINOTOOL_TEMU'
-          $iconIco = ''
-          if (Test-Path 'mockup_gui\\logo.ico') { $iconIco = ' --icon "mockup_gui\\logo.ico"' }
-          $png = '${{ steps.logo.outputs.png }}'
-          $addDataLogo = ''
-          if ($png -ne '') { $addDataLogo = " --add-data `"$png;mockup_gui`"" }
-          pyinstaller --noconfirm --clean --onedir --windowed `
-            --name "$name"$iconIco `
-            --add-data "mockup_gui\\styles.qss;mockup_gui"$addDataLogo `
-            --collect-all PySide6 --collect-all openpyxl --collect-submodules numpy `
-            mockup_gui\\app.py
+          $iconArg = ''
+          if (Test-Path 'mockup_gui\\logo.ico') { $iconArg = ' --icon "mockup_gui\\logo.ico"' }
+          # Build in one line to avoid any Unicode dash/line-continuation issues
+          pyinstaller --noconfirm --clean --onedir --windowed --name "$name" $iconArg --add-data "mockup_gui\\styles.qss;mockup_gui" --add-data "mockup_gui\\logothumnail.png;mockup_gui" --collect-all PySide6 --collect-all openpyxl --collect-submodules numpy mockup_gui\\app.py
 
       - name: Prepare artifact
         shell: pwsh
