@@ -41,7 +41,7 @@ jobs:
           $iconArg = ''
           if (Test-Path 'mockup_gui\\logo.ico') { $iconArg = ' --icon "mockup_gui\\logo.ico"' }
           # Build in one line to avoid any Unicode dash/line-continuation issues
-          py -m PyInstaller --noconfirm --clean --onedir --windowed --name "$name" $iconArg --add-data="mockup_gui/styles.qss;mockup_gui" --add-data="mockup_gui/logothumnail.png;mockup_gui" --collect-all PySide6 --collect-all openpyxl --collect-submodules numpy mockup_gui/app.py
+          py -3.11 -m PyInstaller --noconfirm --clean --onedir --windowed --name "$name" $iconArg --add-data="mockup_gui/styles.qss:mockup_gui" --add-data="mockup_gui/logothumnail.png:mockup_gui" --collect-all PySide6 --collect-all openpyxl --collect-submodules numpy mockup_gui/app.py
 
       - name: Prepare artifact
         shell: pwsh
