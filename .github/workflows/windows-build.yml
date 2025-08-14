@@ -34,14 +34,28 @@ jobs:
             pip install PySide6 pillow numpy requests openpyxl pyinstaller
           }
 
-      - name: Build with PyInstaller (onedir)
+      - name: Build (generate spec)
         shell: pwsh
         run: |
           $name = 'DINOTOOL_TEMU'
-          $iconArg = ''
-          if (Test-Path 'mockup_gui\\logo.ico') { $iconArg = ' --icon "mockup_gui\\logo.ico"' }
-          # Build in one line to avoid any Unicode dash/line-continuation issues
-          py -3.11 -m PyInstaller --noconfirm --clean --onedir --windowed --name "$name" $iconArg --add-data="mockup_gui/styles.qss:mockup_gui" --add-data="mockup_gui/logothumnail.png:mockup_gui" --collect-all PySide6 --collect-all openpyxl --collect-submodules numpy mockup_gui/app.py
+          $icon = ''
+          if (Test-Path 'mockup_gui\\logo.ico') { $icon = ' --icon "mockup_gui\\logo.ico"' }
+          py -3.11 -m PyInstaller --noconfirm --clean --onedir --windowed --name "$name" $icon mockup_gui/app.py
+
+      - name: Patch spec to include resources
+        shell: pwsh
+        run: |
+          $spec = Get-ChildItem -Filter 'DINOTOOL_TEMU.spec' | Select-Object -First 1
+          if (-not $spec) { throw 'Spec file not found' }
+          $text = Get-Content $spec -Raw
+          $datas = "('mockup_gui/styles.qss','mockup_gui'),('mockup_gui/logothumnail.png','mockup_gui')"
+          $text = $text -replace "datas=\[\]", "datas=[$datas]"
+          Set-Content -Path $spec -Value $text -Encoding UTF8
+
+      - name: Build from spec
+        shell: pwsh
+        run: |
+          py -3.11 -m PyInstaller --noconfirm DINOTOOL_TEMU.spec
 
       - name: Prepare artifact
         shell: pwsh
